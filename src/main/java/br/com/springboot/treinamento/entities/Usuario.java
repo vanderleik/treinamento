@@ -1,11 +1,16 @@
 package br.com.springboot.treinamento.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable {
     private static final long serialVersionId = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String email;
