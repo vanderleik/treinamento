@@ -2,6 +2,8 @@ package br.com.springboot.treinamento.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +19,9 @@ public class Usuario implements Serializable {
     private String telefone;
     private String senha;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
+
     public Usuario() {
     }
 
@@ -26,6 +31,10 @@ public class Usuario implements Serializable {
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
     public Long getId() {
