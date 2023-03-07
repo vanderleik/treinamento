@@ -1,5 +1,6 @@
 package br.com.springboot.treinamento.entities;
 
+import br.com.springboot.treinamento.entities.enums.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -22,13 +23,15 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
+    private Integer pedidoStatus;
 
     public Pedido() {
     }
 
-    public Pedido(Long id, Instant data, Usuario cliente) {
+    public Pedido(Long id, Instant data, PedidoStatus pedidoStatus, Usuario cliente) {
         this.id = id;
         this.momento = data;
+        setPedidoStatus(pedidoStatus);
         this.cliente = cliente;
     }
 
@@ -46,6 +49,16 @@ public class Pedido implements Serializable {
 
     public void setMomento(Instant momento) {
         this.momento = momento;
+    }
+
+    public PedidoStatus getPedidoStatus() {
+        return PedidoStatus.valueOf(pedidoStatus);
+    }
+
+    public void setPedidoStatus(PedidoStatus pedidoStatus) {
+        if (pedidoStatus != null) {
+        this.pedidoStatus = pedidoStatus.getCodigo();
+        }
     }
 
     public Usuario getCliente() {
