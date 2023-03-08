@@ -14,6 +14,14 @@ public class Categoria implements Serializable {
     private Long id;
     private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private Produto produto;
+
+    public Produto getProduto() {
+        return produto;
+    }
+
     public Categoria() {
     }
 
