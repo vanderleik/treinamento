@@ -1,8 +1,10 @@
 package br.com.springboot.treinamento.config;
 
+import br.com.springboot.treinamento.entities.Categoria;
 import br.com.springboot.treinamento.entities.Pedido;
 import br.com.springboot.treinamento.entities.Usuario;
 import br.com.springboot.treinamento.entities.enums.PedidoStatus;
+import br.com.springboot.treinamento.repositories.CategoriaRepository;
 import br.com.springboot.treinamento.repositories.PedidoRepository;
 import br.com.springboot.treinamento.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,10 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     @Autowired
     private PedidoRepository pedidoRepository;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,8 +38,13 @@ public class TestConfig implements CommandLineRunner {
         Pedido p2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.AGUARDANDO_PAGAMENTO,u2);
         Pedido p3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.CANCELADO,u1);
 
+        Categoria cat1 = new Categoria(null, "Electronics");
+        Categoria cat2 = new Categoria(null, "Books");
+        Categoria cat3 = new Categoria(null, "Computers");
+
         usuarioRepository.saveAll(Arrays.asList(u1, u2));
         pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
     }
 
 }
