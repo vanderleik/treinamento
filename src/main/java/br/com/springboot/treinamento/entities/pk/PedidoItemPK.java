@@ -2,6 +2,7 @@ package br.com.springboot.treinamento.entities.pk;
 
 import br.com.springboot.treinamento.entities.Pedido;
 import br.com.springboot.treinamento.entities.Produto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -20,6 +21,7 @@ public class PedidoItemPK implements Serializable {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
+    @JsonIgnore
     public Pedido getPedido() {
         return pedido;
     }

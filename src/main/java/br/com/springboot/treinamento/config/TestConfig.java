@@ -1,14 +1,8 @@
 package br.com.springboot.treinamento.config;
 
-import br.com.springboot.treinamento.entities.Categoria;
-import br.com.springboot.treinamento.entities.Pedido;
-import br.com.springboot.treinamento.entities.Produto;
-import br.com.springboot.treinamento.entities.Usuario;
+import br.com.springboot.treinamento.entities.*;
 import br.com.springboot.treinamento.entities.enums.PedidoStatus;
-import br.com.springboot.treinamento.repositories.CategoriaRepository;
-import br.com.springboot.treinamento.repositories.PedidoRepository;
-import br.com.springboot.treinamento.repositories.ProdutoRepository;
-import br.com.springboot.treinamento.repositories.UsuarioRepository;
+import br.com.springboot.treinamento.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoriaRepository categoriaRepository;
     @Autowired
     private ProdutoRepository produtoRepository;
+    @Autowired
+    private PedidoItemRepository pedidoItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -56,6 +52,14 @@ public class TestConfig implements CommandLineRunner {
         pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5));
+
+        PedidoItem oi1 = new PedidoItem(p1, produto1, 2, produto1.getPreco());
+        PedidoItem oi2 = new PedidoItem(p1, produto3, 1, produto3.getPreco());
+        PedidoItem oi3 = new PedidoItem(p2, produto3, 2, produto3.getPreco());
+        PedidoItem oi4 = new PedidoItem(p3, produto5, 2, produto5.getPreco());
+
+        pedidoItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
 
         produto1.getCategorias().add(cat2);
         produto2.getCategorias().add(cat1);
