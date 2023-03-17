@@ -1,8 +1,12 @@
 package br.com.springboot.treinamento.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "categoria")
@@ -14,13 +18,17 @@ public class Categoria implements Serializable {
     private Long id;
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
-    private Produto produto;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categorias")
+    private Set<Produto> produtos = new HashSet<>();
 
-    public Produto getProduto() {
-        return produto;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "produto_id")
+//    private Produto produto;
+
+//    public Produto getProduto() {
+//        return produto;
+//    }
 
     public Categoria() {
     }
@@ -44,6 +52,10 @@ public class Categoria implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Produto> getProdutos() {
+        return produtos;
     }
 
     @Override

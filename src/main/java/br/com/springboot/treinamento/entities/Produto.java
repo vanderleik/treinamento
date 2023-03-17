@@ -2,7 +2,9 @@ package br.com.springboot.treinamento.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "produto")
@@ -17,20 +19,24 @@ public class Produto implements Serializable {
     private Double preco;
     private String imgUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
+    @ManyToMany
+    @JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private Set<Categoria> categorias = new HashSet<>();
+
+//    @ManyToOne
+//    @JoinColumn(name = "pedido_id")
+//    private Pedido pedido;
 
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String descricao, Double preco, String imgUrl, Pedido pedido) {
+    public Produto(Long id, String nome, String descricao, Double preco, String imgUrl/*, Pedido pedido*/) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.imgUrl = imgUrl;
-        this.pedido = pedido;
+//        this.pedido = pedido;
     }
 
     public Long getId() {
@@ -73,12 +79,16 @@ public class Produto implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Pedido getPedido() {
-        return pedido;
-    }
+//    public Pedido getPedido() {
+//        return pedido;
+//    }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+//    public void setPedido(Pedido pedido) {
+//        this.pedido = pedido;
+//    }
+
+    public Set<Categoria> getCategorias() {
+        return categorias;
     }
 
     @Override
