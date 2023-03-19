@@ -1,5 +1,7 @@
 package br.com.springboot.treinamento.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,9 +25,8 @@ public class Produto implements Serializable {
     @JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<Categoria> categorias = new HashSet<>();
 
-//    @ManyToOne
-//    @JoinColumn(name = "pedido_id")
-//    private Pedido pedido;
+    @OneToMany(mappedBy = "id.produto")
+    private Set<PedidoItem> itens = new HashSet<>();
 
     public Produto() {
     }
@@ -79,16 +80,17 @@ public class Produto implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-//    public Pedido getPedido() {
-//        return pedido;
-//    }
-
-//    public void setPedido(Pedido pedido) {
-//        this.pedido = pedido;
-//    }
-
     public Set<Categoria> getCategorias() {
         return categorias;
+    }
+
+    @JsonIgnore
+    public Set<Pedido> getPedidos() {
+        Set<Pedido> set = new HashSet<>();
+        for (PedidoItem x : itens) {
+            set.add(x.getPedido());
+        }
+        return set;
     }
 
     @Override

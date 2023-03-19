@@ -30,6 +30,7 @@ public class PedidoItemPK implements Serializable {
         this.pedido = pedido;
     }
 
+    @JsonIgnore
     public Produto getProduto() {
         return produto;
     }
