@@ -45,4 +45,11 @@ public class UsuarioResource {
         usuarioService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Endpoint que atualiza um usuário
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario obj) {
+        obj = usuarioService.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
 }
