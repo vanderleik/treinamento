@@ -2,6 +2,7 @@ package br.com.springboot.treinamento.service;
 
 import br.com.springboot.treinamento.entities.Usuario;
 import br.com.springboot.treinamento.repositories.UsuarioRepository;
+import br.com.springboot.treinamento.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UsuarioService {
 
     public Usuario findById(Long id) {
         Optional<Usuario> obj = usuarioRepository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Usuario insert(Usuario obj) {
